@@ -57,6 +57,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Best practices and workflows
   - Monitoring and metrics guidelines
 
+#### Phase 4: Interactive AI Threat Modeler (World's First!)
+- **Interactive Visual Threat Modeling Tool** (content/ai_exchange/static/):
+  - Drag & drop component-based architecture builder
+  - 13 AI/ML component types (LLM API, Training Pipeline, RAG System, Vector DB, etc.)
+  - Real-time threat detection and analysis
+  - 40+ threat patterns mapped to OWASP AI taxonomy
+  - Automatic risk scoring algorithm (0-100 scale)
+  - Severity classification (CRITICAL, HIGH, MEDIUM, LOW)
+  - **Multiple export formats**:
+    - JSON - Machine-readable architecture
+    - SARIF - Direct import to GitHub Security tab!
+    - Markdown - Documentation and reporting
+    - PDF - Professional reports (placeholder)
+  - **100% client-side** - No servers, complete privacy
+  - localStorage persistence between sessions
+  - Zero dependencies - Pure vanilla JavaScript
+  - Mobile-responsive design
+- **Component Library**:
+  - AI/ML: LLM API, Training Pipeline, Inference Engine, Model Store, RAG System
+  - Data: User Input, Training Data, Vector DB, Data Pipeline, Output Display
+  - Infrastructure: API Gateway, Web Application, Monitoring
+- **THREAT_DATABASE**: 40+ threat patterns covering all OWASP categories
+- **CONTROL_DATABASE**: Recommended OWASP controls for each threat
+- **Documentation** (docs/THREAT_MODELER.md):
+  - Component descriptions and threat mappings
+  - Risk scoring algorithm explanation
+  - Export format examples and GitHub Security integration
+  - Usage examples (RAG apps, training pipelines, production services)
+  - Technical architecture details
+- **Hugo Integration**: rawhtml.html shortcode for embedding interactive content
+
 #### Phase 3: AI-Powered Threat Intelligence (Revolutionary)
 - **Automated Threat Intelligence System** (scripts/threat-intelligence/):
   - Daily automated scanning of AI/ML vulnerabilities
