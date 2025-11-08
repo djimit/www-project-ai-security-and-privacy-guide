@@ -1,0 +1,301 @@
+{
+  "paths": [
+    {
+      "id": "ai-security-fundamentals",
+      "title": "AI Security Fundamentals",
+      "description": "Master the basics of AI/ML security threats and controls",
+      "difficulty": "beginner",
+      "estimatedHours": 8,
+      "role": "all",
+      "icon": "🎓",
+      "color": "#4CAF50",
+      "modules": [
+        {
+          "id": "intro-ai-security",
+          "title": "Introduction to AI Security",
+          "description": "Understanding AI/ML threat landscape",
+          "estimatedMinutes": 30,
+          "pages": ["/docs/intro/", "/docs/threats/"],
+          "quiz": "intro-quiz",
+          "xp": 100
+        },
+        {
+          "id": "owasp-taxonomy",
+          "title": "OWASP AI Security Taxonomy",
+          "description": "Learn the complete OWASP threat categorization",
+          "estimatedMinutes": 45,
+          "pages": ["/docs/1_general_controls/", "/docs/2_threats_through_use/"],
+          "quiz": "taxonomy-quiz",
+          "xp": 150
+        },
+        {
+          "id": "common-threats",
+          "title": "Common AI Threats",
+          "description": "Prompt injection, data poisoning, and model attacks",
+          "estimatedMinutes": 60,
+          "pages": ["/docs/4_runtime_application_security_threats/"],
+          "quiz": "threats-quiz",
+          "xp": 200
+        },
+        {
+          "id": "basic-controls",
+          "title": "Essential Security Controls",
+          "description": "Implementing basic protections",
+          "estimatedMinutes": 45,
+          "pages": ["/docs/1_general_controls/"],
+          "quiz": "controls-quiz",
+          "xp": 150
+        }
+      ]
+    },
+    {
+      "id": "prompt-injection-master",
+      "title": "Prompt Injection Mastery",
+      "description": "Deep dive into prompt injection attacks and defenses",
+      "difficulty": "intermediate",
+      "estimatedHours": 6,
+      "role": "developer",
+      "icon": "💉",
+      "color": "#FF5722",
+      "modules": [
+        {
+          "id": "direct-injection",
+          "title": "Direct Prompt Injection",
+          "description": "Understanding and preventing direct attacks",
+          "estimatedMinutes": 40,
+          "pages": ["/docs/4_runtime_application_security_threats/#45-direct-prompt-injection"],
+          "quiz": "direct-injection-quiz",
+          "xp": 200
+        },
+        {
+          "id": "indirect-injection",
+          "title": "Indirect Prompt Injection",
+          "description": "RAG poisoning and external content attacks",
+          "estimatedMinutes": 50,
+          "pages": ["/docs/4_runtime_application_security_threats/#46-indirect-prompt-injection"],
+          "quiz": "indirect-injection-quiz",
+          "xp": 250
+        },
+        {
+          "id": "injection-defenses",
+          "title": "Defense Strategies",
+          "description": "Input validation, output filtering, guardrails",
+          "estimatedMinutes": 60,
+          "pages": ["/docs/1_general_controls/"],
+          "quiz": "defenses-quiz",
+          "xp": 300
+        },
+        {
+          "id": "threat-modeling-injection",
+          "title": "Threat Modeling for Injection",
+          "description": "Use the threat modeler to identify injection risks",
+          "estimatedMinutes": 45,
+          "pages": ["/threat-modeler/"],
+          "quiz": "modeling-quiz",
+          "xp": 250
+        }
+      ]
+    },
+    {
+      "id": "ml-engineer-security",
+      "title": "ML Engineer Security Track",
+      "description": "Security for ML model development and deployment",
+      "difficulty": "intermediate",
+      "estimatedHours": 10,
+      "role": "ml-engineer",
+      "icon": "🤖",
+      "color": "#2196F3",
+      "modules": [
+        {
+          "id": "training-security",
+          "title": "Secure Training Pipelines",
+          "description": "Protecting training data and processes",
+          "estimatedMinutes": 60,
+          "pages": ["/docs/3_development_time_threats/"],
+          "quiz": "training-security-quiz",
+          "xp": 200
+        },
+        {
+          "id": "model-poisoning",
+          "title": "Model Poisoning Prevention",
+          "description": "Data poisoning, backdoor attacks, transfer learning risks",
+          "estimatedMinutes": 75,
+          "pages": ["/docs/3_development_time_threats/"],
+          "quiz": "poisoning-quiz",
+          "xp": 300
+        },
+        {
+          "id": "model-theft",
+          "title": "Model Theft & Evasion",
+          "description": "Protecting intellectual property and robustness",
+          "estimatedMinutes": 60,
+          "pages": ["/docs/2_threats_through_use/"],
+          "quiz": "theft-quiz",
+          "xp": 250
+        },
+        {
+          "id": "secure-deployment",
+          "title": "Secure Model Deployment",
+          "description": "Runtime security, monitoring, incident response",
+          "estimatedMinutes": 90,
+          "pages": ["/docs/4_runtime_application_security_threats/"],
+          "quiz": "deployment-quiz",
+          "xp": 350
+        }
+      ]
+    },
+    {
+      "id": "appsec-for-ai",
+      "title": "AppSec for AI Applications",
+      "description": "Application security for AI-powered systems",
+      "difficulty": "intermediate",
+      "estimatedHours": 7,
+      "role": "security-engineer",
+      "icon": "🔒",
+      "color": "#9C27B0",
+      "modules": [
+        {
+          "id": "ai-attack-surface",
+          "title": "AI Application Attack Surface",
+          "description": "Identifying AI-specific attack vectors",
+          "estimatedMinutes": 45,
+          "pages": ["/docs/intro/"],
+          "quiz": "attack-surface-quiz",
+          "xp": 200
+        },
+        {
+          "id": "input-validation",
+          "title": "AI Input Validation",
+          "description": "Validating prompts, embeddings, and user inputs",
+          "estimatedMinutes": 60,
+          "pages": ["/docs/1_general_controls/"],
+          "quiz": "validation-quiz",
+          "xp": 250
+        },
+        {
+          "id": "output-security",
+          "title": "Output Security & Filtering",
+          "description": "Preventing sensitive data leakage and hallucinations",
+          "estimatedMinutes": 50,
+          "pages": ["/docs/4_runtime_application_security_threats/"],
+          "quiz": "output-quiz",
+          "xp": 250
+        },
+        {
+          "id": "rag-security",
+          "title": "RAG System Security",
+          "description": "Securing retrieval-augmented generation",
+          "estimatedMinutes": 70,
+          "pages": ["/docs/4_runtime_application_security_threats/"],
+          "quiz": "rag-quiz",
+          "xp": 300
+        },
+        {
+          "id": "security-testing",
+          "title": "AI Security Testing",
+          "description": "Penetration testing and red teaming for AI",
+          "estimatedMinutes": 60,
+          "pages": ["/docs/1_general_controls/"],
+          "quiz": "testing-quiz",
+          "xp": 300
+        }
+      ]
+    },
+    {
+      "id": "ai-governance",
+      "title": "AI Security Governance",
+      "description": "Management and governance for AI security programs",
+      "difficulty": "advanced",
+      "estimatedHours": 5,
+      "role": "manager",
+      "icon": "📊",
+      "color": "#FF9800",
+      "modules": [
+        {
+          "id": "risk-assessment",
+          "title": "AI Risk Assessment",
+          "description": "Evaluating and prioritizing AI security risks",
+          "estimatedMinutes": 60,
+          "pages": ["/docs/intro/"],
+          "quiz": "risk-quiz",
+          "xp": 200
+        },
+        {
+          "id": "compliance",
+          "title": "AI Compliance & Regulations",
+          "description": "GDPR, AI Act, sector-specific requirements",
+          "estimatedMinutes": 50,
+          "pages": ["/docs/1_general_controls/"],
+          "quiz": "compliance-quiz",
+          "xp": 250
+        },
+        {
+          "id": "security-program",
+          "title": "AI Security Program Design",
+          "description": "Building organization-wide AI security",
+          "estimatedMinutes": 70,
+          "pages": ["/docs/1_general_controls/"],
+          "quiz": "program-quiz",
+          "xp": 300
+        },
+        {
+          "id": "incident-response",
+          "title": "AI Incident Response",
+          "description": "Handling AI security incidents",
+          "estimatedMinutes": 60,
+          "pages": ["/docs/4_runtime_application_security_threats/"],
+          "quiz": "incident-quiz",
+          "xp": 250
+        }
+      ]
+    },
+    {
+      "id": "advanced-ai-attacks",
+      "title": "Advanced AI Attack Techniques",
+      "description": "Master sophisticated AI attack methods",
+      "difficulty": "advanced",
+      "estimatedHours": 12,
+      "role": "security-engineer",
+      "icon": "⚔️",
+      "color": "#F44336",
+      "modules": [
+        {
+          "id": "adversarial-ml",
+          "title": "Adversarial Machine Learning",
+          "description": "Evasion attacks, adversarial examples, robust ML",
+          "estimatedMinutes": 90,
+          "pages": ["/docs/2_threats_through_use/"],
+          "quiz": "adversarial-quiz",
+          "xp": 400
+        },
+        {
+          "id": "model-inversion",
+          "title": "Model Inversion & Extraction",
+          "description": "Stealing models and extracting training data",
+          "estimatedMinutes": 80,
+          "pages": ["/docs/2_threats_through_use/"],
+          "quiz": "inversion-quiz",
+          "xp": 400
+        },
+        {
+          "id": "supply-chain",
+          "title": "AI Supply Chain Attacks",
+          "description": "Compromising models, datasets, and dependencies",
+          "estimatedMinutes": 70,
+          "pages": ["/docs/3_development_time_threats/"],
+          "quiz": "supply-chain-quiz",
+          "xp": 350
+        },
+        {
+          "id": "advanced-injection",
+          "title": "Advanced Injection Techniques",
+          "description": "Multi-turn attacks, jailbreaking, context manipulation",
+          "estimatedMinutes": 100,
+          "pages": ["/docs/4_runtime_application_security_threats/"],
+          "quiz": "advanced-injection-quiz",
+          "xp": 450
+        }
+      ]
+    }
+  ]
+}

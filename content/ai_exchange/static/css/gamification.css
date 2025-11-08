@@ -1,0 +1,755 @@
+/**
+ * OWASP AI Security Gamification Styles
+ * Styling for learning paths, achievements, progress tracking, and quizzes
+ */
+
+/* ==================== Variables ==================== */
+:root {
+    --gamify-primary: #4CAF50;
+    --gamify-secondary: #2196F3;
+    --gamify-accent: #FF9800;
+    --gamify-success: #4CAF50;
+    --gamify-warning: #FF9800;
+    --gamify-danger: #f44336;
+    --gamify-bronze: #CD7F32;
+    --gamify-silver: #C0C0C0;
+    --gamify-gold: #FFD700;
+    --gamify-platinum: #E5E4E2;
+    --gamify-bg: #ffffff;
+    --gamify-card-bg: #f9f9f9;
+    --gamify-border: #e0e0e0;
+    --gamify-text: #333333;
+    --gamify-text-muted: #666666;
+    --gamify-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --gamify-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
+    --gamify-radius: 8px;
+    --gamify-transition: all 0.3s ease;
+}
+
+[data-theme="dark"] {
+    --gamify-bg: #1a1a1a;
+    --gamify-card-bg: #2a2a2a;
+    --gamify-border: #3a3a3a;
+    --gamify-text: #e0e0e0;
+    --gamify-text-muted: #a0a0a0;
+    --gamify-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --gamify-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* ==================== Layout ==================== */
+.gamification-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.gamification-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.gamification-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: var(--gamify-text);
+}
+
+.gamification-header p {
+    font-size: 1.1rem;
+    color: var(--gamify-text-muted);
+}
+
+/* ==================== Progress Bar ==================== */
+.progress-bar {
+    width: 100%;
+    height: 30px;
+    background-color: var(--gamify-border);
+    border-radius: var(--gamify-radius);
+    overflow: hidden;
+    position: relative;
+    margin: 10px 0;
+}
+
+.progress-bar__fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gamify-primary), var(--gamify-secondary));
+    transition: width 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar__fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.progress-bar__label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: var(--gamify-text);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ==================== Level Badge ==================== */
+.level-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 25px;
+    background: linear-gradient(135deg, var(--gamify-primary), var(--gamify-secondary));
+    border-radius: var(--gamify-radius);
+    color: white;
+    font-weight: bold;
+    box-shadow: var(--gamify-shadow);
+    margin: 10px 0;
+}
+
+.level-badge__icon {
+    font-size: 2rem;
+}
+
+.level-badge__info {
+    display: flex;
+    flex-direction: column;
+}
+
+.level-badge__level {
+    font-size: 1.5rem;
+}
+
+.level-badge__title {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.level-badge__xp {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-top: 5px;
+}
+
+/* ==================== Stats Dashboard ==================== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.stat-card {
+    background: var(--gamify-card-bg);
+    border: 1px solid var(--gamify-border);
+    border-radius: var(--gamify-radius);
+    padding: 20px;
+    text-align: center;
+    transition: var(--gamify-transition);
+    box-shadow: var(--gamify-shadow);
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--gamify-shadow-hover);
+}
+
+.stat-card__icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.stat-card__value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--gamify-primary);
+    margin: 10px 0;
+}
+
+.stat-card__label {
+    font-size: 0.9rem;
+    color: var(--gamify-text-muted);
+}
+
+/* ==================== Learning Paths ==================== */
+.learning-paths {
+    margin: 40px 0;
+}
+
+.learning-paths__filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-button {
+    padding: 8px 16px;
+    border: 2px solid var(--gamify-border);
+    border-radius: 20px;
+    background: var(--gamify-bg);
+    color: var(--gamify-text);
+    cursor: pointer;
+    transition: var(--gamify-transition);
+    font-weight: 500;
+}
+
+.filter-button:hover {
+    border-color: var(--gamify-primary);
+    color: var(--gamify-primary);
+}
+
+.filter-button.active {
+    background: var(--gamify-primary);
+    color: white;
+    border-color: var(--gamify-primary);
+}
+
+.paths-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.path-card {
+    background: var(--gamify-card-bg);
+    border: 2px solid var(--gamify-border);
+    border-radius: var(--gamify-radius);
+    padding: 25px;
+    transition: var(--gamify-transition);
+    box-shadow: var(--gamify-shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.path-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--path-color, var(--gamify-primary));
+}
+
+.path-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--gamify-shadow-hover);
+    border-color: var(--path-color, var(--gamify-primary));
+}
+
+.path-card.completed {
+    border-color: var(--gamify-success);
+    background: linear-gradient(135deg, var(--gamify-card-bg) 0%, rgba(76, 175, 80, 0.05) 100%);
+}
+
+.path-card__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.path-card__icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.path-card__title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--gamify-text);
+    margin: 0;
+}
+
+.path-card__meta {
+    display: flex;
+    gap: 15px;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    color: var(--gamify-text-muted);
+}
+
+.path-card__difficulty {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.path-card__difficulty.beginner {
+    background: rgba(76, 175, 80, 0.2);
+    color: var(--gamify-success);
+}
+
+.path-card__difficulty.intermediate {
+    background: rgba(255, 152, 0, 0.2);
+    color: var(--gamify-warning);
+}
+
+.path-card__difficulty.advanced {
+    background: rgba(244, 67, 54, 0.2);
+    color: var(--gamify-danger);
+}
+
+.path-card__description {
+    color: var(--gamify-text-muted);
+    margin: 15px 0;
+    line-height: 1.6;
+}
+
+.path-card__modules {
+    font-size: 0.9rem;
+    color: var(--gamify-text-muted);
+    margin: 10px 0;
+}
+
+.path-card__progress {
+    margin: 15px 0;
+}
+
+.path-card__button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: var(--gamify-radius);
+    background: var(--path-color, var(--gamify-primary));
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--gamify-transition);
+}
+
+.path-card__button:hover {
+    opacity: 0.9;
+    transform: scale(1.02);
+}
+
+.path-card__button.completed {
+    background: var(--gamify-success);
+}
+
+/* ==================== Achievement Gallery ==================== */
+.achievements-section {
+    margin: 40px 0;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.achievement-card {
+    background: var(--gamify-card-bg);
+    border: 2px solid var(--gamify-border);
+    border-radius: var(--gamify-radius);
+    padding: 20px;
+    text-align: center;
+    transition: var(--gamify-transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.achievement-card.unlocked {
+    border-color: var(--tier-color);
+    box-shadow: 0 0 20px rgba(var(--tier-color-rgb), 0.3);
+}
+
+.achievement-card.locked {
+    opacity: 0.5;
+    filter: grayscale(70%);
+}
+
+.achievement-card:hover {
+    transform: scale(1.05);
+}
+
+.achievement-card__icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.achievement-card__tier {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--tier-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.7rem;
+    color: white;
+}
+
+.achievement-card__title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--gamify-text);
+    margin: 10px 0;
+}
+
+.achievement-card__description {
+    font-size: 0.85rem;
+    color: var(--gamify-text-muted);
+    margin: 10px 0;
+}
+
+.achievement-card__xp {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--gamify-primary);
+    margin-top: 10px;
+}
+
+.achievement-card__progress {
+    margin-top: 10px;
+}
+
+/* ==================== Toast Notifications ==================== */
+.achievement-toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, var(--gamify-primary), var(--gamify-secondary));
+    color: white;
+    padding: 20px 25px;
+    border-radius: var(--gamify-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    animation: slideIn 0.5s ease, slideOut 0.5s ease 4.5s;
+    max-width: 350px;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+.achievement-toast__header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.achievement-toast__icon {
+    font-size: 2.5rem;
+}
+
+.achievement-toast__title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.achievement-toast__description {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin: 5px 0;
+}
+
+.achievement-toast__xp {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-top: 10px;
+}
+
+/* ==================== Quiz Interface ==================== */
+.quiz-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background: var(--gamify-card-bg);
+    border-radius: var(--gamify-radius);
+    box-shadow: var(--gamify-shadow);
+}
+
+.quiz-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--gamify-border);
+}
+
+.quiz-header h2 {
+    color: var(--gamify-text);
+    margin-bottom: 10px;
+}
+
+.quiz-progress {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    font-size: 0.9rem;
+    color: var(--gamify-text-muted);
+}
+
+.quiz-question {
+    margin: 30px 0;
+}
+
+.quiz-question__text {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--gamify-text);
+    margin-bottom: 20px;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.quiz-option {
+    padding: 15px 20px;
+    background: var(--gamify-bg);
+    border: 2px solid var(--gamify-border);
+    border-radius: var(--gamify-radius);
+    cursor: pointer;
+    transition: var(--gamify-transition);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.quiz-option:hover {
+    border-color: var(--gamify-primary);
+    background: rgba(76, 175, 80, 0.05);
+}
+
+.quiz-option.selected {
+    border-color: var(--gamify-primary);
+    background: rgba(76, 175, 80, 0.1);
+}
+
+.quiz-option.correct {
+    border-color: var(--gamify-success);
+    background: rgba(76, 175, 80, 0.2);
+}
+
+.quiz-option.incorrect {
+    border-color: var(--gamify-danger);
+    background: rgba(244, 67, 54, 0.2);
+}
+
+.quiz-option__radio {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--gamify-border);
+    flex-shrink: 0;
+}
+
+.quiz-option.selected .quiz-option__radio {
+    border-color: var(--gamify-primary);
+    background: var(--gamify-primary);
+}
+
+.quiz-option__text {
+    flex: 1;
+    color: var(--gamify-text);
+}
+
+.quiz-explanation {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(33, 150, 243, 0.1);
+    border-left: 4px solid var(--gamify-secondary);
+    border-radius: 4px;
+}
+
+.quiz-explanation__title {
+    font-weight: bold;
+    color: var(--gamify-secondary);
+    margin-bottom: 8px;
+}
+
+.quiz-explanation__text {
+    color: var(--gamify-text);
+    line-height: 1.6;
+}
+
+.quiz-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 15px;
+}
+
+.quiz-button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: var(--gamify-radius);
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--gamify-transition);
+}
+
+.quiz-button.primary {
+    background: var(--gamify-primary);
+    color: white;
+}
+
+.quiz-button.secondary {
+    background: var(--gamify-border);
+    color: var(--gamify-text);
+}
+
+.quiz-button:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+.quiz-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.quiz-results {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.quiz-results__score {
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--gamify-primary);
+    margin: 20px 0;
+}
+
+.quiz-results__message {
+    font-size: 1.5rem;
+    color: var(--gamify-text);
+    margin: 20px 0;
+}
+
+.quiz-results__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+/* ==================== Responsive Design ==================== */
+@media (max-width: 768px) {
+    .gamification-header h1 {
+        font-size: 2rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+
+    .paths-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .achievements-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .achievement-toast {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+
+    .quiz-container {
+        padding: 20px;
+    }
+
+    .quiz-controls {
+        flex-direction: column;
+    }
+}
+
+/* ==================== Animations ==================== */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 5px var(--tier-color);
+    }
+    50% {
+        box-shadow: 0 0 20px var(--tier-color);
+    }
+}
+
+.achievement-card.unlocked {
+    animation: pulse 2s infinite;
+}
+
+.level-badge {
+    animation: glow 3s infinite;
+}
+
+/* ==================== Utility Classes ==================== */
+.text-center {
+    text-align: center;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.hidden {
+    display: none;
+}

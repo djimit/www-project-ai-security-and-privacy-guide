@@ -1,0 +1,464 @@
+{
+  "achievements": [
+    {
+      "id": "first-steps",
+      "title": "First Steps",
+      "description": "Complete your first learning module",
+      "icon": "👣",
+      "xp": 50,
+      "tier": "bronze",
+      "category": "progression",
+      "condition": {
+        "type": "modules_completed",
+        "value": 1
+      }
+    },
+    {
+      "id": "getting-started",
+      "title": "Getting Started",
+      "description": "Complete your first learning path",
+      "icon": "🚀",
+      "xp": 200,
+      "tier": "silver",
+      "category": "progression",
+      "condition": {
+        "type": "paths_completed",
+        "value": 1
+      }
+    },
+    {
+      "id": "knowledge-seeker",
+      "title": "Knowledge Seeker",
+      "description": "Complete 3 learning paths",
+      "icon": "📚",
+      "xp": 500,
+      "tier": "gold",
+      "category": "progression",
+      "condition": {
+        "type": "paths_completed",
+        "value": 3
+      }
+    },
+    {
+      "id": "master-learner",
+      "title": "Master Learner",
+      "description": "Complete all learning paths",
+      "icon": "🎓",
+      "xp": 1000,
+      "tier": "platinum",
+      "category": "progression",
+      "condition": {
+        "type": "paths_completed",
+        "value": 6
+      }
+    },
+    {
+      "id": "quiz-novice",
+      "title": "Quiz Novice",
+      "description": "Pass your first quiz",
+      "icon": "✅",
+      "xp": 50,
+      "tier": "bronze",
+      "category": "knowledge",
+      "condition": {
+        "type": "quizzes_passed",
+        "value": 1
+      }
+    },
+    {
+      "id": "quiz-master",
+      "title": "Quiz Master",
+      "description": "Pass 10 quizzes with 100% score",
+      "icon": "💯",
+      "xp": 500,
+      "tier": "gold",
+      "category": "knowledge",
+      "condition": {
+        "type": "perfect_quizzes",
+        "value": 10
+      }
+    },
+    {
+      "id": "perfect-streak",
+      "title": "Perfect Streak",
+      "description": "Get 5 perfect quiz scores in a row",
+      "icon": "🔥",
+      "xp": 300,
+      "tier": "silver",
+      "category": "knowledge",
+      "condition": {
+        "type": "quiz_streak",
+        "value": 5
+      }
+    },
+    {
+      "id": "injection-expert",
+      "title": "Injection Expert",
+      "description": "Complete the Prompt Injection Mastery path",
+      "icon": "💉",
+      "xp": 300,
+      "tier": "gold",
+      "category": "specialization",
+      "condition": {
+        "type": "specific_path",
+        "value": "prompt-injection-master"
+      }
+    },
+    {
+      "id": "ml-security-pro",
+      "title": "ML Security Pro",
+      "description": "Complete the ML Engineer Security Track",
+      "icon": "🤖",
+      "xp": 400,
+      "tier": "gold",
+      "category": "specialization",
+      "condition": {
+        "type": "specific_path",
+        "value": "ml-engineer-security"
+      }
+    },
+    {
+      "id": "appsec-specialist",
+      "title": "AppSec Specialist",
+      "description": "Complete the AppSec for AI Applications path",
+      "icon": "🔒",
+      "xp": 350,
+      "tier": "gold",
+      "category": "specialization",
+      "condition": {
+        "type": "specific_path",
+        "value": "appsec-for-ai"
+      }
+    },
+    {
+      "id": "governance-guru",
+      "title": "Governance Guru",
+      "description": "Complete the AI Security Governance path",
+      "icon": "📊",
+      "xp": 300,
+      "tier": "gold",
+      "category": "specialization",
+      "condition": {
+        "type": "specific_path",
+        "value": "ai-governance"
+      }
+    },
+    {
+      "id": "threat-hunter",
+      "title": "Threat Hunter",
+      "description": "Complete the Advanced AI Attack Techniques path",
+      "icon": "⚔️",
+      "xp": 500,
+      "tier": "platinum",
+      "category": "specialization",
+      "condition": {
+        "type": "specific_path",
+        "value": "advanced-ai-attacks"
+      }
+    },
+    {
+      "id": "threat-modeler",
+      "title": "Threat Modeler",
+      "description": "Create your first threat model",
+      "icon": "🎯",
+      "xp": 100,
+      "tier": "bronze",
+      "category": "practical",
+      "condition": {
+        "type": "threat_models_created",
+        "value": 1
+      }
+    },
+    {
+      "id": "architecture-analyst",
+      "title": "Architecture Analyst",
+      "description": "Create 5 threat models",
+      "icon": "🏗️",
+      "xp": 300,
+      "tier": "silver",
+      "category": "practical",
+      "condition": {
+        "type": "threat_models_created",
+        "value": 5
+      }
+    },
+    {
+      "id": "security-architect",
+      "title": "Security Architect",
+      "description": "Export a threat model to SARIF",
+      "icon": "📐",
+      "xp": 200,
+      "tier": "silver",
+      "category": "practical",
+      "condition": {
+        "type": "sarif_exports",
+        "value": 1
+      }
+    },
+    {
+      "id": "early-bird",
+      "title": "Early Bird",
+      "description": "Complete a module before 9 AM",
+      "icon": "🌅",
+      "xp": 50,
+      "tier": "bronze",
+      "category": "engagement",
+      "condition": {
+        "type": "time_based",
+        "value": "before_9am"
+      }
+    },
+    {
+      "id": "night-owl",
+      "title": "Night Owl",
+      "description": "Complete a module after 10 PM",
+      "icon": "🦉",
+      "xp": 50,
+      "tier": "bronze",
+      "category": "engagement",
+      "condition": {
+        "type": "time_based",
+        "value": "after_10pm"
+      }
+    },
+    {
+      "id": "weekend-warrior",
+      "title": "Weekend Warrior",
+      "description": "Complete 5 modules on weekends",
+      "icon": "⚡",
+      "xp": 100,
+      "tier": "bronze",
+      "category": "engagement",
+      "condition": {
+        "type": "weekend_modules",
+        "value": 5
+      }
+    },
+    {
+      "id": "consistent-learner",
+      "title": "Consistent Learner",
+      "description": "Complete modules on 7 consecutive days",
+      "icon": "📅",
+      "xp": 200,
+      "tier": "silver",
+      "category": "engagement",
+      "condition": {
+        "type": "daily_streak",
+        "value": 7
+      }
+    },
+    {
+      "id": "unstoppable",
+      "title": "Unstoppable",
+      "description": "Maintain a 30-day learning streak",
+      "icon": "🔥",
+      "xp": 500,
+      "tier": "platinum",
+      "category": "engagement",
+      "condition": {
+        "type": "daily_streak",
+        "value": 30
+      }
+    },
+    {
+      "id": "speed-reader",
+      "title": "Speed Reader",
+      "description": "Complete a module in under 10 minutes",
+      "icon": "⚡",
+      "xp": 100,
+      "tier": "bronze",
+      "category": "engagement",
+      "condition": {
+        "type": "module_time",
+        "value": 600
+      }
+    },
+    {
+      "id": "thoroughness",
+      "title": "Thoroughness",
+      "description": "Spend over 2 hours on a single path",
+      "icon": "🔍",
+      "xp": 150,
+      "tier": "silver",
+      "category": "engagement",
+      "condition": {
+        "type": "path_time",
+        "value": 7200
+      }
+    },
+    {
+      "id": "xp-milestone-1k",
+      "title": "XP Milestone: 1,000",
+      "description": "Earn 1,000 total XP",
+      "icon": "⭐",
+      "xp": 100,
+      "tier": "bronze",
+      "category": "milestone",
+      "condition": {
+        "type": "total_xp",
+        "value": 1000
+      }
+    },
+    {
+      "id": "xp-milestone-5k",
+      "title": "XP Milestone: 5,000",
+      "description": "Earn 5,000 total XP",
+      "icon": "🌟",
+      "xp": 300,
+      "tier": "silver",
+      "category": "milestone",
+      "condition": {
+        "type": "total_xp",
+        "value": 5000
+      }
+    },
+    {
+      "id": "xp-milestone-10k",
+      "title": "XP Milestone: 10,000",
+      "description": "Earn 10,000 total XP",
+      "icon": "💫",
+      "xp": 500,
+      "tier": "gold",
+      "category": "milestone",
+      "condition": {
+        "type": "total_xp",
+        "value": 10000
+      }
+    },
+    {
+      "id": "xp-elite",
+      "title": "Elite Status",
+      "description": "Earn 25,000 total XP",
+      "icon": "👑",
+      "xp": 1000,
+      "tier": "platinum",
+      "category": "milestone",
+      "condition": {
+        "type": "total_xp",
+        "value": 25000
+      }
+    },
+    {
+      "id": "explorer",
+      "title": "Explorer",
+      "description": "Visit 20 different documentation pages",
+      "icon": "🗺️",
+      "xp": 100,
+      "tier": "bronze",
+      "category": "exploration",
+      "condition": {
+        "type": "pages_visited",
+        "value": 20
+      }
+    },
+    {
+      "id": "documentation-master",
+      "title": "Documentation Master",
+      "description": "Visit all major documentation sections",
+      "icon": "📖",
+      "xp": 300,
+      "tier": "gold",
+      "category": "exploration",
+      "condition": {
+        "type": "pages_visited",
+        "value": 50
+      }
+    },
+    {
+      "id": "community-contributor",
+      "title": "Community Contributor",
+      "description": "Share your progress on social media",
+      "icon": "🤝",
+      "xp": 150,
+      "tier": "silver",
+      "category": "social",
+      "condition": {
+        "type": "social_share",
+        "value": 1
+      }
+    },
+    {
+      "id": "feedback-provider",
+      "title": "Feedback Provider",
+      "description": "Provide feedback on 3 quizzes",
+      "icon": "💬",
+      "xp": 100,
+      "tier": "bronze",
+      "category": "social",
+      "condition": {
+        "type": "feedback_given",
+        "value": 3
+      }
+    },
+    {
+      "id": "owasp-champion",
+      "title": "OWASP Champion",
+      "description": "Complete all OWASP taxonomy modules",
+      "icon": "🏆",
+      "xp": 600,
+      "tier": "platinum",
+      "category": "specialization",
+      "condition": {
+        "type": "category_mastery",
+        "value": "owasp"
+      }
+    },
+    {
+      "id": "renaissance-learner",
+      "title": "Renaissance Learner",
+      "description": "Complete paths from all difficulty levels",
+      "icon": "🎨",
+      "xp": 400,
+      "tier": "gold",
+      "category": "progression",
+      "condition": {
+        "type": "difficulty_variety",
+        "value": 3
+      }
+    },
+    {
+      "id": "multi-role-master",
+      "title": "Multi-Role Master",
+      "description": "Complete paths for 3 different roles",
+      "icon": "🎭",
+      "xp": 500,
+      "tier": "platinum",
+      "category": "progression",
+      "condition": {
+        "type": "role_variety",
+        "value": 3
+      }
+    }
+  ],
+  "tiers": {
+    "bronze": {
+      "color": "#CD7F32",
+      "minAchievements": 0
+    },
+    "silver": {
+      "color": "#C0C0C0",
+      "minAchievements": 5
+    },
+    "gold": {
+      "color": "#FFD700",
+      "minAchievements": 15
+    },
+    "platinum": {
+      "color": "#E5E4E2",
+      "minAchievements": 25
+    }
+  },
+  "levels": [
+    {"level": 1, "minXP": 0, "title": "Novice", "icon": "🌱"},
+    {"level": 2, "minXP": 500, "title": "Learner", "icon": "📝"},
+    {"level": 3, "minXP": 1000, "title": "Student", "icon": "🎓"},
+    {"level": 4, "minXP": 2000, "title": "Practitioner", "icon": "⚙️"},
+    {"level": 5, "minXP": 3500, "title": "Professional", "icon": "💼"},
+    {"level": 6, "minXP": 5500, "title": "Expert", "icon": "🎯"},
+    {"level": 7, "minXP": 8000, "title": "Specialist", "icon": "🔬"},
+    {"level": 8, "minXP": 11000, "title": "Authority", "icon": "📚"},
+    {"level": 9, "minXP": 15000, "title": "Master", "icon": "👑"},
+    {"level": 10, "minXP": 20000, "title": "Grandmaster", "icon": "🏆"},
+    {"level": 11, "minXP": 25000, "title": "Legend", "icon": "⭐"}
+  ]
+}

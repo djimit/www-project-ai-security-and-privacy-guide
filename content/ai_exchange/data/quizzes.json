@@ -1,0 +1,287 @@
+{
+  "quizzes": {
+    "intro-quiz": {
+      "title": "Introduction to AI Security",
+      "passingScore": 70,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What makes AI/ML systems uniquely vulnerable compared to traditional software?",
+          "type": "multiple-choice",
+          "options": [
+            "They are written in Python",
+            "They learn from data and can be manipulated through training data or inputs",
+            "They use more memory",
+            "They require GPUs"
+          ],
+          "correctAnswer": 1,
+          "explanation": "AI/ML systems are unique because they learn from data, which means attackers can manipulate their behavior through poisoned training data, adversarial inputs, or prompt injection - attack vectors that don't exist in traditional software."
+        },
+        {
+          "id": "q2",
+          "question": "Which of the following is NOT a primary category in the OWASP AI Security taxonomy?",
+          "type": "multiple-choice",
+          "options": [
+            "General Controls",
+            "Threats Through Use",
+            "Network Security",
+            "Development-time Threats"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Network Security is not a specific OWASP AI category. The main categories are: General Controls, Threats Through Use, Development-time Threats, and Runtime Application Security Threats."
+        },
+        {
+          "id": "q3",
+          "question": "What is the primary goal of prompt injection attacks?",
+          "type": "multiple-choice",
+          "options": [
+            "To slow down the AI model",
+            "To manipulate the AI's behavior by injecting malicious instructions",
+            "To steal the model weights",
+            "To corrupt the training data"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Prompt injection attacks aim to manipulate the AI's behavior by injecting malicious instructions that override the system's intended behavior, potentially causing data leakage, unauthorized actions, or policy violations."
+        }
+      ]
+    },
+    "taxonomy-quiz": {
+      "title": "OWASP AI Security Taxonomy",
+      "passingScore": 75,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "Which OWASP category deals with attacks that manipulate model predictions without accessing training data?",
+          "type": "multiple-choice",
+          "options": [
+            "Development-time Threats",
+            "Threats Through Use",
+            "Runtime Application Security Threats",
+            "General Controls"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Threats Through Use (Category 2) includes evasion attacks and model theft, which manipulate or exploit models during inference without requiring access to training infrastructure."
+        },
+        {
+          "id": "q2",
+          "question": "Data poisoning attacks belong to which category?",
+          "type": "multiple-choice",
+          "options": [
+            "General Controls",
+            "Threats Through Use",
+            "Development-time Threats",
+            "Runtime Application Security Threats"
+          ],
+          "correctAnswer": 2,
+          "explanation": "Data poisoning is a Development-time Threat (Category 3) because it involves compromising the training data or process before the model is deployed."
+        },
+        {
+          "id": "q3",
+          "question": "What distinguishes Direct Prompt Injection from Indirect Prompt Injection?",
+          "type": "multiple-choice",
+          "options": [
+            "Direct uses SQL, Indirect uses NoSQL",
+            "Direct comes from user input, Indirect comes from external data sources",
+            "Direct is more dangerous",
+            "There is no difference"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Direct Prompt Injection (4.5) comes directly from user input, while Indirect Prompt Injection (4.6) involves malicious instructions embedded in external data sources like RAG systems, emails, or web pages."
+        },
+        {
+          "id": "q4",
+          "question": "Which control category should be implemented first in any AI security program?",
+          "type": "multiple-choice",
+          "options": [
+            "Runtime monitoring",
+            "General Controls (governance, risk assessment, secure development)",
+            "Model hardening",
+            "Adversarial training"
+          ],
+          "correctAnswer": 1,
+          "explanation": "General Controls (Category 1) form the foundation of any AI security program, including governance, risk assessment, secure development practices, and basic security hygiene that apply to all AI systems."
+        }
+      ]
+    },
+    "threats-quiz": {
+      "title": "Common AI Threats",
+      "passingScore": 70,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is a common defense against prompt injection attacks?",
+          "type": "multiple-choice",
+          "options": [
+            "Use a faster GPU",
+            "Implement input validation, output filtering, and privilege separation",
+            "Increase model size",
+            "Use more training data"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Effective defenses include input validation to detect malicious prompts, output filtering to prevent sensitive data leakage, privilege separation to limit what the AI can access, and guardrails to constrain AI behavior."
+        },
+        {
+          "id": "q2",
+          "question": "In a RAG (Retrieval-Augmented Generation) system, where is the most common injection point?",
+          "type": "multiple-choice",
+          "options": [
+            "The vector database",
+            "The model weights",
+            "The GPU memory",
+            "The HTTP headers"
+          ],
+          "correctAnswer": 0,
+          "explanation": "In RAG systems, attackers often poison the vector database by injecting documents with malicious instructions. When these documents are retrieved and passed to the LLM, they can manipulate the AI's behavior (Indirect Prompt Injection)."
+        },
+        {
+          "id": "q3",
+          "question": "What is model inversion?",
+          "type": "multiple-choice",
+          "options": [
+            "Running a model backwards",
+            "Extracting training data by analyzing model outputs",
+            "Flipping the model's predictions",
+            "Reversing the training process"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Model inversion attacks extract sensitive information about the training data by carefully querying the model and analyzing its outputs. This can leak private information that was in the training set."
+        }
+      ]
+    },
+    "controls-quiz": {
+      "title": "Essential Security Controls",
+      "passingScore": 75,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is the purpose of model output filtering?",
+          "type": "multiple-choice",
+          "options": [
+            "To make outputs shorter",
+            "To prevent sensitive data leakage and ensure policy compliance",
+            "To improve model accuracy",
+            "To reduce latency"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Output filtering scans AI-generated content for sensitive information (PII, credentials, proprietary data) and policy violations before displaying it to users, preventing data leakage from prompt injection or model memorization."
+        },
+        {
+          "id": "q2",
+          "question": "Which of these is an example of defense-in-depth for AI systems?",
+          "type": "multiple-choice",
+          "options": [
+            "Only using input validation",
+            "Combining input validation, output filtering, rate limiting, monitoring, and privilege separation",
+            "Using the largest possible model",
+            "Encrypting all data"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Defense-in-depth involves multiple layers of security controls. For AI systems, this includes input validation, output filtering, rate limiting to prevent abuse, continuous monitoring, and privilege separation to limit blast radius."
+        },
+        {
+          "id": "q3",
+          "question": "Why is continuous monitoring important for AI systems?",
+          "type": "multiple-choice",
+          "options": [
+            "To count API calls",
+            "To detect drift, attacks, abuse, and emerging threats in real-time",
+            "To improve performance",
+            "To reduce costs"
+          ],
+          "correctAnswer": 1,
+          "explanation": "AI systems can degrade over time (concept drift), face novel attacks, or be abused in unexpected ways. Continuous monitoring detects anomalies, attack patterns, data drift, and abuse, enabling rapid response."
+        }
+      ]
+    },
+    "direct-injection-quiz": {
+      "title": "Direct Prompt Injection",
+      "passingScore": 80,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is the primary characteristic of a direct prompt injection attack?",
+          "type": "multiple-choice",
+          "options": [
+            "It comes from the model's training data",
+            "It's injected directly by the user through their input",
+            "It happens during model training",
+            "It requires root access"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Direct Prompt Injection (OWASP 4.5) occurs when an attacker directly provides malicious instructions through user input, attempting to override the system prompt or intended behavior."
+        },
+        {
+          "id": "q2",
+          "question": "Which technique can help prevent direct prompt injection?",
+          "type": "multiple-choice",
+          "options": [
+            "Instruction/data separation with special tokens or formats",
+            "Using a bigger model",
+            "Increasing temperature",
+            "Removing all user input"
+          ],
+          "correctAnswer": 0,
+          "explanation": "Separating instructions from user data using special tokens, structured formats (like XML/JSON), or delimiter sequences helps the model distinguish between system instructions and user content, reducing injection risk."
+        },
+        {
+          "id": "q3",
+          "question": "What is 'jailbreaking' in the context of LLMs?",
+          "type": "multiple-choice",
+          "options": [
+            "Escaping from a Unix jail",
+            "Using prompts to bypass safety guardrails and content policies",
+            "Breaking encryption",
+            "Stealing the model"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Jailbreaking uses carefully crafted prompts to bypass an LLM's safety guardrails and content policies, making it generate prohibited content or violate its intended usage constraints."
+        }
+      ]
+    },
+    "defenses-quiz": {
+      "title": "Defense Strategies Against Injection",
+      "passingScore": 75,
+      "questions": [
+        {
+          "id": "q1",
+          "question": "What is the purpose of privilege separation in AI applications?",
+          "type": "multiple-choice",
+          "options": [
+            "To give the AI admin access",
+            "To limit what resources and actions the AI can access, reducing blast radius",
+            "To separate different AI models",
+            "To improve performance"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Privilege separation limits the AI's access to only necessary resources and capabilities. If an injection attack succeeds, the damage is contained because the AI cannot access sensitive systems or data it doesn't need."
+        },
+        {
+          "id": "q2",
+          "question": "What are 'guardrails' in AI systems?",
+          "type": "multiple-choice",
+          "options": [
+            "Physical barriers around servers",
+            "Programmatic constraints that monitor and limit AI behavior and outputs",
+            "Training data filters",
+            "Network firewalls"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Guardrails are programmatic constraints that monitor AI inputs/outputs and enforce policies. They can block harmful content, prevent unauthorized actions, enforce output formats, and detect policy violations in real-time."
+        },
+        {
+          "id": "q3",
+          "question": "Why is rate limiting important for AI APIs?",
+          "type": "multiple-choice",
+          "options": [
+            "To save money only",
+            "To prevent abuse, DoS attacks, and automated extraction attempts",
+            "To make the system slower",
+            "It's not important"
+          ],
+          "correctAnswer": 1,
+          "explanation": "Rate limiting prevents abuse patterns like denial-of-service attacks, automated model extraction attempts, mass data exfiltration, and helps detect suspicious activity patterns that may indicate an attack."
+        }
+      ]
+    }
+  }
+}
