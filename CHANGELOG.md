@@ -57,6 +57,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Best practices and workflows
   - Monitoring and metrics guidelines
 
+#### Phase 3: AI-Powered Threat Intelligence (Revolutionary)
+- **Automated Threat Intelligence System** (scripts/threat-intelligence/):
+  - Daily automated scanning of AI/ML vulnerabilities
+  - CVE database monitoring for AI/ML threats
+  - GitHub Security Advisory tracking (12+ AI/ML repositories)
+  - arXiv research paper monitoring for novel attacks
+  - **LLM-powered analysis** using Claude/GPT for automatic categorization
+  - OWASP taxonomy mapping with AI
+  - Automated documentation generation
+  - Auto-created pull requests for human review
+  - Live threat intelligence dashboard
+  - Comprehensive threat analysis workflow
+- **Data Sources Integration**:
+  - National Vulnerability Database (NVD) API
+  - GitHub GraphQL API for security advisories
+  - arXiv feed parsing for research papers
+  - Rate-limited API clients
+- **Python Scripts** (6 modules, 1000+ lines):
+  - fetch_cves.py - CVE collection with AI keyword filtering
+  - fetch_advisories.py - GitHub advisory monitoring
+  - fetch_research.py - Academic paper tracking
+  - analyze_threats.py - LLM-powered threat analysis (core innovation)
+  - generate_updates.py - Markdown documentation generation
+  - update_dashboard.py - Live dashboard updates
+
 ### Changed
 - Updated GitHub Actions to latest versions (v2 → v4 for checkout, v2 → v3 for Hugo setup)
 - Updated Hextra theme from v0.7.1 to v0.7.3 in go.mod
