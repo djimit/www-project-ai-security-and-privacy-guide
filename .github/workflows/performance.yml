@@ -1,0 +1,203 @@
+name: Performance & Accessibility
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'content/**'
+      - '.github/workflows/performance.yml'
+  push:
+    branches: [main]
+  # Allow manual runs
+  workflow_dispatch:
+
+jobs:
+  lighthouse-ci:
+    name: Lighthouse CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.119.0'
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+          cache-dependency-path: content/ai_exchange/go.sum
+
+      - name: Build Hugo Site
+        run: |
+          cd content/ai_exchange
+          hugo mod get
+          hugo --gc --minify
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.13.x
+
+      - name: Run Lighthouse CI
+        run: |
+          cd content/ai_exchange
+          lhci autorun --collect.staticDistDir=./public || echo "Lighthouse audit completed with warnings"
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Lighthouse Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-report
+          path: .lighthouseci
+          retention-days: 30
+
+  accessibility-check:
+    name: Accessibility Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.119.0'
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+          cache-dependency-path: content/ai_exchange/go.sum
+
+      - name: Build Hugo Site
+        run: |
+          cd content/ai_exchange
+          hugo mod get
+          hugo --gc --minify
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install pa11y-ci
+        run: npm install -g pa11y-ci
+
+      - name: Create pa11y config
+        run: |
+          cat > .pa11yci.json << 'EOF'
+          {
+            "defaults": {
+              "standard": "WCAG2AA",
+              "timeout": 10000,
+              "wait": 1000,
+              "chromeLaunchConfig": {
+                "args": ["--no-sandbox", "--disable-dev-shm-usage"]
+              }
+            },
+            "urls": [
+              "content/ai_exchange/public/index.html",
+              "content/ai_exchange/public/docs/ai_security_overview/index.html",
+              "content/ai_exchange/public/docs/1_general_controls/index.html"
+            ]
+          }
+          EOF
+
+      - name: Run pa11y accessibility tests
+        run: pa11y-ci --config .pa11yci.json
+        continue-on-error: true
+
+  html-validation:
+    name: HTML Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.119.0'
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+          cache-dependency-path: content/ai_exchange/go.sum
+
+      - name: Build Hugo Site
+        run: |
+          cd content/ai_exchange
+          hugo mod get
+          hugo --gc --minify
+
+      - name: Validate HTML
+        uses: Cyb3r-Jak3/html5validator-action@v7.2.0
+        with:
+          root: content/ai_exchange/public/
+          css: true
+          # Continue on error to not block PR
+          extra: --ignore-re 'Attribute "x-' 'Attribute "hx-'
+        continue-on-error: true
+
+  bundle-size:
+    name: Bundle Size Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.119.0'
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+          cache-dependency-path: content/ai_exchange/go.sum
+
+      - name: Build Hugo Site
+        run: |
+          cd content/ai_exchange
+          hugo mod get
+          hugo --gc --minify
+
+      - name: Check bundle size
+        run: |
+          cd content/ai_exchange/public
+          echo "## 📦 Build Size Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          TOTAL_SIZE=$(du -sh . | cut -f1)
+          HTML_SIZE=$(find . -name "*.html" -exec du -ch {} + | grep total | cut -f1)
+          CSS_SIZE=$(find . -name "*.css" -exec du -ch {} + | grep total | cut -f1 || echo "0")
+          JS_SIZE=$(find . -name "*.js" -exec du -ch {} + | grep total | cut -f1 || echo "0")
+          IMG_SIZE=$(find . -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.webp" -o -name "*.svg" \) -exec du -ch {} + | grep total | cut -f1 || echo "0")
+
+          echo "| Asset Type | Size |" >> $GITHUB_STEP_SUMMARY
+          echo "|------------|------|" >> $GITHUB_STEP_SUMMARY
+          echo "| **Total** | $TOTAL_SIZE |" >> $GITHUB_STEP_SUMMARY
+          echo "| HTML | $HTML_SIZE |" >> $GITHUB_STEP_SUMMARY
+          echo "| CSS | $CSS_SIZE |" >> $GITHUB_STEP_SUMMARY
+          echo "| JavaScript | $JS_SIZE |" >> $GITHUB_STEP_SUMMARY
+          echo "| Images | $IMG_SIZE |" >> $GITHUB_STEP_SUMMARY
+
+          # Fail if total size exceeds 100MB
+          SIZE_MB=$(du -sm . | cut -f1)
+          if [ $SIZE_MB -gt 100 ]; then
+            echo "⚠️ **Warning**: Build size ($SIZE_MB MB) exceeds 100MB threshold" >> $GITHUB_STEP_SUMMARY
+            exit 1
+          else
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Build size is within acceptable limits" >> $GITHUB_STEP_SUMMARY
+          fi

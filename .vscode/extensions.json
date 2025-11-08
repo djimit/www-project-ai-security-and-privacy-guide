@@ -1,0 +1,38 @@
+{
+  "recommendations": [
+    // Markdown
+    "davidanson.vscode-markdownlint",
+    "yzhang.markdown-all-in-one",
+    "bierner.markdown-preview-github-styles",
+
+    // YAML
+    "redhat.vscode-yaml",
+
+    // Git
+    "eamodio.gitlens",
+    "mhutchie.git-graph",
+
+    // Hugo
+    "budparr.language-hugo-vscode",
+    "eliostruyf.vscode-front-matter",
+
+    // Go
+    "golang.go",
+
+    // Code Quality
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig",
+
+    // Formatting
+    "esbenp.prettier-vscode",
+
+    // GitHub
+    "github.vscode-pull-request-github",
+    "github.vscode-github-actions",
+
+    // Utilities
+    "aaron-bond.better-comments",
+    "wayou.vscode-todo-highlight"
+  ],
+  "unwantedRecommendations": []
+}

@@ -1,0 +1,27 @@
+{
+  "ci": {
+    "collect": {
+      "staticDistDir": "./content/ai_exchange/public",
+      "numberOfRuns": 3,
+      "url": [
+        "http://localhost/index.html",
+        "http://localhost/docs/ai_security_overview/index.html",
+        "http://localhost/docs/1_general_controls/index.html"
+      ]
+    },
+    "assert": {
+      "preset": "lighthouse:recommended",
+      "assertions": {
+        "categories:performance": ["warn", {"minScore": 0.8}],
+        "categories:accessibility": ["error", {"minScore": 0.9}],
+        "categories:best-practices": ["warn", {"minScore": 0.8}],
+        "categories:seo": ["warn", {"minScore": 0.9}],
+        "uses-long-cache-ttl": "off",
+        "uses-http2": "off"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

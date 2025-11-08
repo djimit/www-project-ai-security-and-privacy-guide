@@ -1,0 +1,89 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Hugo: Start Server",
+      "type": "shell",
+      "command": "cd content/ai_exchange && hugo server --gc --minify -D",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Hugo: Build",
+      "type": "shell",
+      "command": "cd content/ai_exchange && hugo --gc --minify",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Hugo: Clean",
+      "type": "shell",
+      "command": "rm -rf content/ai_exchange/public content/ai_exchange/resources",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Lint: Markdown",
+      "type": "shell",
+      "command": "markdownlint-cli2 '**/*.md' '!node_modules' '!content/ai_exchange/public'",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Lint: YAML",
+      "type": "shell",
+      "command": "yamllint -c .yamllint .",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Test: Links",
+      "type": "shell",
+      "command": "cd content/ai_exchange && hugo --gc --minify && lychee 'public/**/*.html'",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Pre-commit: Run All",
+      "type": "shell",
+      "command": "pre-commit run --all-files",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "Go: Update Modules",
+      "type": "shell",
+      "command": "cd content/ai_exchange && hugo mod get -u && hugo mod tidy",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ]
+}

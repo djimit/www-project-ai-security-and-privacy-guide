@@ -1,0 +1,134 @@
+name: Release Management
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., 1.0.0)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get version
+        id: get_version
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "version=v${{ inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            echo "version=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Extract changelog for this version
+        id: changelog
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+          VERSION_NUMBER="${VERSION#v}"
+
+          # Extract content between version headers in CHANGELOG.md
+          CHANGELOG_CONTENT=$(awk "/## \[${VERSION_NUMBER}\]/,/## \[/" CHANGELOG.md | sed '$d' | tail -n +2)
+
+          if [ -z "$CHANGELOG_CONTENT" ]; then
+            CHANGELOG_CONTENT="See [CHANGELOG.md](CHANGELOG.md) for details."
+          fi
+
+          # Save to file for release notes
+          echo "$CHANGELOG_CONTENT" > release-notes.md
+
+          echo "changelog_file=release-notes.md" >> $GITHUB_OUTPUT
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.119.0'
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Build Hugo Site
+        run: |
+          cd content/ai_exchange
+          hugo mod get
+          hugo --gc --minify
+
+      - name: Create release archive
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+          cd content/ai_exchange
+          tar -czf ../../owaspai-${VERSION}.tar.gz public/
+          cd ../..
+          ls -lh owaspai-${VERSION}.tar.gz
+
+      - name: Generate build report
+        run: |
+          VERSION="${{ steps.get_version.outputs.version }}"
+
+          cat > build-report.md << EOF
+          # Build Report for $VERSION
+
+          ## Build Statistics
+          - **Build Date**: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          - **Hugo Version**: 0.119.0
+          - **Go Version**: 1.21
+          - **Hextra Theme**: v0.7.3
+
+          ## Site Size
+          \`\`\`
+          $(du -sh content/ai_exchange/public)
+          \`\`\`
+
+          ## File Counts
+          - HTML files: $(find content/ai_exchange/public -name "*.html" | wc -l)
+          - CSS files: $(find content/ai_exchange/public -name "*.css" | wc -l)
+          - JS files: $(find content/ai_exchange/public -name "*.js" | wc -l)
+          - Images: $(find content/ai_exchange/public -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.webp" -o -name "*.svg" \) | wc -l)
+
+          ## Recent Commits
+          \`\`\`
+          $(git log --oneline -5)
+          \`\`\`
+          EOF
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.get_version.outputs.version }}
+          name: Release ${{ steps.get_version.outputs.version }}
+          body_path: release-notes.md
+          files: |
+            owaspai-${{ steps.get_version.outputs.version }}.tar.gz
+            build-report.md
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update CHANGELOG for next version
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          # Add unreleased section to CHANGELOG if it doesn't exist
+          if ! grep -q "## \[Unreleased\]" CHANGELOG.md; then
+            sed -i '1s/^/## [Unreleased]\n\n/' CHANGELOG.md
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add CHANGELOG.md
+            git commit -m "chore: prepare CHANGELOG for next release"
+            git push
+          fi

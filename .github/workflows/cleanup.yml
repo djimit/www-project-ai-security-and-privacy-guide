@@ -1,0 +1,151 @@
+name: Repository Cleanup
+
+on:
+  schedule:
+    # Run monthly on the 1st at 00:00 UTC
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+jobs:
+  detect-duplicates:
+    name: Detect Duplicate Files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install fdupes
+        run: sudo apt-get update && sudo apt-get install -y fdupes
+
+      - name: Find duplicate files
+        id: duplicates
+        run: |
+          echo "## 🔍 Duplicate Files Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Find duplicates, excluding certain directories
+          DUPLICATES=$(fdupes -r . \
+            --exclude .git \
+            --exclude node_modules \
+            --exclude public \
+            --exclude _site \
+            --exclude resources \
+            2>/dev/null || true)
+
+          if [ -n "$DUPLICATES" ]; then
+            echo "Found duplicate files:" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo "$DUPLICATES" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo "duplicate_found=true" >> $GITHUB_OUTPUT
+          else
+            echo "✅ No duplicate files found" >> $GITHUB_STEP_SUMMARY
+            echo "duplicate_found=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create issue if duplicates found
+        if: steps.duplicates.outputs.duplicate_found == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = '🔍 Duplicate Files Detected';
+            const body = `Automated scan detected duplicate files in the repository.
+
+            Please review and consolidate these files to reduce repository size.
+
+            See the [workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.`;
+
+            // Check if issue already exists
+            const issues = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'cleanup,automated'
+            });
+
+            const existingIssue = issues.data.find(issue => issue.title === title);
+
+            if (!existingIssue) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: title,
+                body: body,
+                labels: ['cleanup', 'automated', 'enhancement']
+              });
+            }
+
+  check-broken-links:
+    name: Check for Broken Links (Production)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check production site links
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: |
+            --verbose
+            --no-progress
+            --accept 200,201,202,203,204,300,301,302,303,304,307,308,999
+            --exclude-mail
+            --max-retries 3
+            https://owaspai.org
+          fail: false
+          format: markdown
+          output: lychee-report.md
+
+      - name: Upload link check report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: link-check-report
+          path: lychee-report.md
+          retention-days: 30
+
+  analyze-images:
+    name: Analyze Images for Optimization
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Analyze images
+        run: |
+          echo "## 🖼️ Image Analysis Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          # Find all images
+          echo "### Large Images (>500KB)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          LARGE_IMAGES=$(find . -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) -size +500k -exec ls -lh {} \; | awk '{print $9, $5}' || true)
+
+          if [ -n "$LARGE_IMAGES" ]; then
+            echo "| File | Size |" >> $GITHUB_STEP_SUMMARY
+            echo "|------|------|" >> $GITHUB_STEP_SUMMARY
+            echo "$LARGE_IMAGES" | while read -r line; do
+              FILE=$(echo $line | awk '{print $1}')
+              SIZE=$(echo $line | awk '{print $2}')
+              echo "| $FILE | $SIZE |" >> $GITHUB_STEP_SUMMARY
+            done
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "💡 Consider optimizing these images with WebP format or compression" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ No images larger than 500KB found" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          # Count image types
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Image Format Distribution" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          PNG_COUNT=$(find . -name "*.png" 2>/dev/null | wc -l)
+          JPG_COUNT=$(find . -name "*.jpg" -o -name "*.jpeg" 2>/dev/null | wc -l)
+          WEBP_COUNT=$(find . -name "*.webp" 2>/dev/null | wc -l)
+          SVG_COUNT=$(find . -name "*.svg" 2>/dev/null | wc -l)
+
+          echo "- PNG: $PNG_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "- JPG/JPEG: $JPG_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "- WebP: $WEBP_COUNT" >> $GITHUB_STEP_SUMMARY
+          echo "- SVG: $SVG_COUNT" >> $GITHUB_STEP_SUMMARY
