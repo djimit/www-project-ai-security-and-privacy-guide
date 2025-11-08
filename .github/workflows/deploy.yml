@@ -13,18 +13,36 @@ jobs:
     environment: production
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       # Add any build steps here. For example:
       # - run: npm ci && npm run build
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
           hugo-version: '0.119.0'
           # extended: true
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+          cache-dependency-path: content/ai_exchange/go.sum
+
+      - name: Cache Hugo modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/hugo_cache
+            content/ai_exchange/resources
+          key: ${{ runner.os }}-hugo-${{ hashFiles('content/ai_exchange/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-hugo-
+
       - name: Build
         run: |
          cd content/ai_exchange
-         hugo mod get github.com/imfing/hextra@v0.7.3
+         hugo mod get
          hugo --gc --minify
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

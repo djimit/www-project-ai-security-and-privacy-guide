@@ -1,0 +1,109 @@
+name: Content Quality Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    paths:
+      - '**.md'
+      - 'content/**'
+
+jobs:
+  markdown-lint:
+    name: Markdown Linting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v15
+        with:
+          globs: |
+            **/*.md
+            !node_modules
+            !content/ai_exchange/public
+
+  link-validation:
+    name: Link Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.119.0'
+
+      - name: Build Hugo Site
+        run: |
+          cd content/ai_exchange
+          hugo mod get github.com/imfing/hextra@v0.7.3
+          hugo --gc --minify
+
+      - name: Check Links
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: |
+            --verbose
+            --no-progress
+            --accept 200,201,202,203,204,300,301,302,303,304,307,308,999
+            --exclude-mail
+            --exclude 'localhost'
+            --exclude 'linkedin.com'
+            --max-retries 3
+            'content/ai_exchange/public/**/*.html'
+          fail: true
+
+  build-validation:
+    name: Build Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.119.0'
+
+      - name: Build Hugo Site
+        run: |
+          cd content/ai_exchange
+          hugo mod get github.com/imfing/hextra@v0.7.3
+          hugo --gc --minify
+
+      - name: Verify Critical Files Exist
+        run: |
+          cd content/ai_exchange
+          test -f public/index.html || (echo "Missing public/index.html" && exit 1)
+          test -f public/docs/ai_security_overview/index.html || (echo "Missing ai_security_overview" && exit 1)
+          test -d public/docs || (echo "Missing docs directory" && exit 1)
+          echo "✓ All critical files present"
+
+      - name: Check Build Size
+        run: |
+          cd content/ai_exchange
+          SIZE=$(du -sm public | cut -f1)
+          echo "Build size: ${SIZE}MB"
+          if [ $SIZE -gt 100 ]; then
+            echo "Warning: Build size exceeds 100MB"
+            exit 1
+          fi
+
+  spell-check:
+    name: Spell Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check Spelling
+        uses: crate-ci/typos@v1.18.0
+        with:
+          files: |
+            ./*.md
+            ./content/**/*.md
+          config: ./.typos.toml

@@ -1,0 +1,27 @@
+[default]
+extend-ignore-re = [
+  # Ignore URLs
+  "https?://\\S+",
+  # Ignore code blocks
+  "```[\\s\\S]*?```",
+]
+
+[default.extend-words]
+# Add custom dictionary for technical terms
+OWASP = "OWASP"
+owaspai = "owaspai"
+Hextra = "Hextra"
+
+[files]
+extend-exclude = [
+  "*.pdf",
+  "*.docx",
+  "*.png",
+  "*.jpg",
+  "*.svg",
+  "go.sum",
+  "go.mod",
+  "public/",
+  "node_modules/",
+  "_site/",
+]

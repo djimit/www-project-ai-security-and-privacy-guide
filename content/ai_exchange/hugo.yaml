@@ -90,5 +90,4 @@ menu:
 
 services:
   googleAnalytics:
-    # This might not be correct format?
     ID: G-QPGVTTDD3R
