@@ -1,0 +1,414 @@
+/**
+ * Internationalization (i18n) Styles
+ * Language switcher and RTL support
+ */
+
+/* ==================== Language Switcher ==================== */
+
+.language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  background: var(--color-bg-secondary, #f5f5f5);
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.language-switcher:hover {
+  background: var(--color-bg-primary, #ffffff);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.language-label {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: var(--color-text-primary, #000000);
+  white-space: nowrap;
+}
+
+.language-select {
+  padding: 6px 32px 6px 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text-primary, #000000);
+  background: var(--color-bg-primary, #ffffff);
+  border: 2px solid var(--color-border, #e0e0e0);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  min-width: 150px;
+}
+
+.language-select:hover {
+  border-color: var(--color-primary, #4CAF50);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+}
+
+.language-select:focus {
+  outline: 3px solid var(--color-primary, #4CAF50);
+  outline-offset: 2px;
+  border-color: var(--color-primary, #4CAF50);
+}
+
+.language-select option {
+  padding: 8px;
+  font-size: 0.875rem;
+}
+
+/* Dark mode support */
+[data-theme="dark"] .language-switcher {
+  background: var(--color-bg-secondary, #1e1e1e);
+  border-color: #333;
+}
+
+[data-theme="dark"] .language-select {
+  background: var(--color-bg-primary, #121212);
+  color: var(--color-text-primary, #ffffff);
+  border-color: #333;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+}
+
+/* ==================== Header/Navigation Integration ==================== */
+
+.header .language-switcher,
+.nav .language-switcher {
+  margin-left: auto;
+}
+
+.header .language-switcher {
+  background: transparent;
+  border: none;
+  padding: 4px 8px;
+}
+
+.header .language-select {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: inherit;
+  min-width: 120px;
+}
+
+.header .language-select:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ==================== Mobile Responsive ==================== */
+
+@media (max-width: 768px) {
+  .language-switcher {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .language-select {
+    flex: 1;
+    min-width: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .language-label {
+    display: none;
+  }
+
+  .language-select {
+    width: 100%;
+  }
+}
+
+/* ==================== Loading State ==================== */
+
+.language-switcher.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.language-switcher.loading::after {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-primary, #4CAF50);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==================== Compact Mode ==================== */
+
+.language-switcher.compact {
+  padding: 4px 8px;
+  gap: 8px;
+}
+
+.language-switcher.compact .language-label {
+  display: none;
+}
+
+.language-switcher.compact .language-select {
+  min-width: 100px;
+  font-size: 0.8125rem;
+  padding: 4px 28px 4px 8px;
+}
+
+/* ==================== RTL Support ==================== */
+
+[dir="rtl"] .language-select {
+  background-position: left 10px center;
+  padding: 6px 12px 6px 32px;
+}
+
+[dir="rtl"] .header .language-switcher,
+[dir="rtl"] .nav .language-switcher {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* ==================== Accessibility ==================== */
+
+.language-switcher:focus-within {
+  outline: 3px solid var(--color-primary, #4CAF50);
+  outline-offset: 2px;
+}
+
+/* High contrast mode */
+.high-contrast .language-switcher {
+  border: 2px solid var(--color-border, #FFFFFF);
+  background: var(--color-bg, #000000);
+}
+
+.high-contrast .language-select {
+  border: 2px solid var(--color-border, #FFFFFF);
+  background: var(--color-bg, #000000);
+  color: var(--color-text, #FFFFFF);
+}
+
+/* Reduced motion */
+.reduce-motion .language-switcher,
+.reduce-motion .language-select {
+  transition: none;
+}
+
+/* ==================== Print Styles ==================== */
+
+@media print {
+  .language-switcher {
+    display: none;
+  }
+}
+
+/* ==================== Language-Specific Adjustments ==================== */
+
+/* Spanish - Slightly wider for longer text */
+html[lang="es"] .language-select {
+  min-width: 160px;
+}
+
+html[lang="es"] .language-label,
+html[lang="es"] .language-select {
+  letter-spacing: -0.01em;
+}
+
+/* ==================== Floating Language Switcher ==================== */
+
+.language-switcher.floating {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background: var(--color-bg-primary, #ffffff);
+}
+
+.language-switcher.floating:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .language-switcher.floating {
+    bottom: 80px;
+    right: 16px;
+    left: auto;
+  }
+}
+
+/* ==================== Language Badge ==================== */
+
+.language-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: var(--color-primary, #4CAF50);
+  color: white;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.language-badge .flag {
+  font-size: 1rem;
+}
+
+/* ==================== Translation Status Indicators ==================== */
+
+.translation-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted, #666);
+  margin-left: 8px;
+}
+
+.translation-status.complete {
+  color: var(--color-success, #4CAF50);
+}
+
+.translation-status.partial {
+  color: var(--color-warning, #FF9800);
+}
+
+.translation-status.missing {
+  color: var(--color-error, #F44336);
+}
+
+.translation-status::before {
+  content: '●';
+  font-size: 0.625rem;
+}
+
+/* ==================== Language Toggle Button ==================== */
+
+.language-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--color-bg-secondary, #f5f5f5);
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.25rem;
+}
+
+.language-toggle:hover {
+  background: var(--color-primary, #4CAF50);
+  color: white;
+  transform: scale(1.05);
+}
+
+.language-toggle:focus {
+  outline: 3px solid var(--color-primary, #4CAF50);
+  outline-offset: 2px;
+}
+
+/* ==================== Inline Translation ==================== */
+
+[data-i18n] {
+  transition: opacity 0.2s ease;
+}
+
+[data-i18n].translating {
+  opacity: 0.5;
+}
+
+/* ==================== Language Menu Dropdown ==================== */
+
+.language-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.language-menu-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--color-bg-secondary, #f5f5f5);
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.language-menu-button:hover {
+  background: var(--color-bg-primary, #ffffff);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.language-menu-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  background: var(--color-bg-primary, #ffffff);
+  border: 1px solid var(--color-border, #e0e0e0);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  z-index: 1000;
+}
+
+.language-menu.open .language-menu-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.language-option:hover {
+  background: var(--color-bg-secondary, #f5f5f5);
+}
+
+.language-option.active {
+  background: var(--color-primary, #4CAF50);
+  color: white;
+  font-weight: 600;
+}
+
+.language-option .flag {
+  font-size: 1.5rem;
+}
+
+.language-option .name {
+  flex: 1;
+}
+
+.language-option .checkmark {
+  opacity: 0;
+}
+
+.language-option.active .checkmark {
+  opacity: 1;
+}
