@@ -1,0 +1,70 @@
+{
+  "ci": {
+    "collect": {
+      "url": [
+        "http://localhost:1313/",
+        "http://localhost:1313/learning-paths/",
+        "http://localhost:1313/threat-modeler/",
+        "http://localhost:1313/docs/"
+      ],
+      "numberOfRuns": 3,
+      "settings": {
+        "preset": "desktop",
+        "throttling": {
+          "rttMs": 40,
+          "throughputKbps": 10240,
+          "cpuSlowdownMultiplier": 1
+        },
+        "skipAudits": []
+      }
+    },
+    "assert": {
+      "preset": "lighthouse:recommended",
+      "assertions": {
+        "categories:performance": ["error", {"minScore": 0.9}],
+        "categories:accessibility": ["error", {"minScore": 0.95}],
+        "categories:best-practices": ["error", {"minScore": 0.95}],
+        "categories:seo": ["error", {"minScore": 0.90}],
+        "categories:pwa": ["warn", {"minScore": 0.80}],
+
+        "first-contentful-paint": ["error", {"maxNumericValue": 1800}],
+        "largest-contentful-paint": ["error", {"maxNumericValue": 2500}],
+        "cumulative-layout-shift": ["error", {"maxNumericValue": 0.1}],
+        "total-blocking-time": ["error", {"maxNumericValue": 300}],
+        "speed-index": ["error", {"maxNumericValue": 3000}],
+        "interactive": ["error", {"maxNumericValue": 3800}],
+
+        "uses-optimized-images": "error",
+        "modern-image-formats": "warn",
+        "uses-text-compression": "error",
+        "uses-responsive-images": "error",
+        "efficient-animated-content": "warn",
+        "unused-css-rules": "warn",
+        "unused-javascript": "warn",
+        "render-blocking-resources": "warn",
+        "unminified-css": "error",
+        "unminified-javascript": "error",
+
+        "dom-size": ["warn", {"maxNumericValue": 1500}],
+        "mainthread-work-breakdown": ["warn", {"maxNumericValue": 4000}],
+        "bootup-time": ["warn", {"maxNumericValue": 3500}],
+
+        "offscreen-images": "warn",
+        "uses-long-cache-ttl": "warn",
+        "total-byte-weight": ["warn", {"maxNumericValue": 512000}],
+
+        "service-worker": "warn",
+        "installable-manifest": "warn",
+        "viewport": "error",
+        "color-contrast": "error",
+        "image-alt": "error",
+        "label": "error",
+        "tap-targets": "warn",
+        "meta-description": "warn"
+      }
+    },
+    "upload": {
+      "target": "temporary-public-storage"
+    }
+  }
+}

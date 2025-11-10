@@ -39,7 +39,25 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-hugo-
 
-      - name: Build
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: content/ai_exchange/package-lock.json
+
+      - name: Install dependencies
+        working-directory: content/ai_exchange
+        run: npm ci
+
+      - name: Build and optimize assets
+        working-directory: content/ai_exchange
+        run: |
+          npm run build:prod
+          npm run compress
+          npm run size
+
+      - name: Build Hugo site
         run: |
          cd content/ai_exchange
          hugo mod get

@@ -1,0 +1,140 @@
+{
+  "name": "OWASP AI Security & Privacy Guide",
+  "short_name": "OWASP AI Security",
+  "description": "Interactive learning platform for AI/ML security with gamification, threat modeling, and comprehensive OWASP guidance",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#4CAF50",
+  "orientation": "any",
+  "categories": [
+    "education",
+    "security",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/learning-paths.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "Interactive Learning Paths"
+    },
+    {
+      "src": "/screenshots/threat-modeler.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "label": "AI Threat Modeler"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Learning Paths",
+      "short_name": "Learn",
+      "description": "Start your AI security learning journey",
+      "url": "/learning-paths/",
+      "icons": [
+        {
+          "src": "/icons/shortcut-learn.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Threat Modeler",
+      "short_name": "Model",
+      "description": "Create AI/ML threat models",
+      "url": "/threat-modeler/",
+      "icons": [
+        {
+          "src": "/icons/shortcut-model.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Documentation",
+      "short_name": "Docs",
+      "description": "Browse OWASP AI security documentation",
+      "url": "/docs/",
+      "icons": [
+        {
+          "src": "/icons/shortcut-docs.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "share_target": {
+    "action": "/share/",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "features": [
+    "offline",
+    "gamification",
+    "threat-modeling",
+    "learning-paths",
+    "achievements"
+  ]
+}
